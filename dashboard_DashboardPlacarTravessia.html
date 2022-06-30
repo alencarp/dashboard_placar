@@ -1,0 +1,191 @@
+<div class="mdl-layout mdl-js-layout">
+    <header class="mdl-layout__header mdl-layout__header--scroll">
+        <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title bold">Placar da Retomada</span>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation">
+                <div class="mdl-selectfield mdl-js-selectfield">
+                    <select name="selectAnoMes" id="selectAnoMes" class="mdl-selectfield__select">
+
+                    </select>
+                    <label class="mdl-selectfield__label" for="selectAnoMes">Tipo Mercado</label>
+                </div>
+                <div class="mdl-selectfield mdl-js-selectfield">
+                    <select name="selectMercado" id="selectMercado" class="mdl-selectfield__select">
+                    </select>
+                    <label class="mdl-selectfield__label" for="selectMercado">Tipo Mercado</label>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="mdl-layout-content cinza">
+        <div class="mdl-grid">
+            <div class="container-cards mdl-cell mdl-cell--2-col">
+                <div class="container-cards__dados mdl-shadow--2dp">
+                    <div class="mdl-card__title card-titulo">
+                        <h2 id="titulo-fat-mes" class="mdl-card__title-text">Fat. Bruto - Mês</h2>
+                        <div>
+                            <span class="mdl-chip mdl-color-text--white bold">
+                                <span id="card-faturamento-bruto-mes-pct" class="mdl-chip__text card-chip"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="faturamento-card" align="right">
+                        <div>
+                            <div class="card-texto">Real: <span class="bold card-valor"
+                                    id="card-faturamento-bruto-mes-real"></span></div>
+                            <br>
+                            <div class="card-texto">Previsto: <span class="card-valor"
+                                    id="card-faturamento-bruto-mes-previsto"></span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-cards__dados mdl-shadow--2dp">
+                <div class="mdl-card__title card-titulo">
+                    <h2 id="titulo-volume-mes" class="mdl-card__title-text">Volume. - Mês</h2>
+                    <div>
+                        <span class="mdl-chip mdl-color-text--white bold">
+                            <span id="card-volume-mes-pct" class="mdl-chip__text card-chip"></span>
+                        </span>
+                    </div>
+                </div>
+                <br>
+                <div class="faturamento-card" align="right">
+                    <div>
+                        <div class="card-texto">Real: <span class="bold card-valor"
+                                id="card-volume-mes-real"></span></div>
+                        <br>
+                        <div class="card-texto">Previsto: <span class="card-valor"
+                                id="card-volume-mes-previsto"></span></div>
+                    </div>
+                </div>
+            </div>
+               
+                 <div class="container-cards__dados mdl-shadow--2dp">
+                    <div class="mdl-card__title card-titulo">
+                        <h2 id="titulo-margem-mes" class="mdl-card__title-text">Margem Contrib. - Mês</h2>
+                        <div>
+                            <span class="mdl-chip mdl-color-text--white bold">
+                                <span id="card-margem-mes-pct" class="mdl-chip__text card-chip"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="faturamento-card" align="right">
+                        <div>
+                            <div class="card-texto">Real: <span class="bold card-valor"
+                                    id="card-margem-mes-real"></span></div>
+                            <br>
+                            <div class="card-texto">Previsto: <span class="card-valor"
+                                    id="card-margem-mes-previsto"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-cards mdl-cell mdl-cell--2-col">
+                <div class="container-cards__dados mdl-shadow--2dp">
+                        <div class="mdl-card__title card-titulo">
+                            <h2 class="mdl-card__title-text">Fat. Bruto - Acumulado</h2>
+                            <div>
+                                <span class="mdl-chip mdl-color-text--white bold">
+                                    <span id="card-faturamento-bruto-acumulado-pct" class="mdl-chip__text card-chip"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="faturamento-card" align="right">
+                            <div>
+                                <div class="card-texto">Real: <span class="bold card-valor"
+                                        id="card-faturamento-bruto-acumulado-real"></span></div>
+                                <br>
+                                <div class="card-texto">Previsto: <span class="card-valor"
+                                        id="card-faturamento-bruto-acumulado-previsto"></span></div>
+                            </div>
+                        </div>
+                    </div>
+               
+                    <div class="container-cards__dados mdl-shadow--2dp">
+                        <div class="mdl-card__title card-titulo">
+                            <h2 class="mdl-card__title-text">Volume - Acumulado</h2>
+                            <div>
+                                <span class="mdl-chip mdl-color-text--white bold">
+                                    <span id="card-volume-acumulado-pct" class="mdl-chip__text card-chip"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="faturamento-card" align="right">
+                            <div>
+                                <div class="card-texto">Real: <span class="bold card-valor"
+                                        id="card-volume-acumulado-real"></span></div>
+                                <br>
+                                <div class="card-texto">Previsto: <span class="card-valor"
+                                        id="card-volume-acumulado-previsto"></span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="container-cards__dados mdl-shadow--2dp">
+                    <div class="mdl-card__title card-titulo">
+                        <h2 class="mdl-card__title-text">Margem Contrib. - Acumulado</h2>
+                        <div>
+                            <span class="mdl-chip mdl-color-text--white bold">
+                                <span id="card-margem-acumulado-pct" class="mdl-chip__text card-chip"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="faturamento-card" align="right">
+                        <div>
+                            <div class="card-texto">Real: <span class="bold card-valor"
+                                    id="card-margem-acumulado-real"></span></div>
+                            <br>
+                            <div class="card-texto">Previsto: <span class="card-valor"
+                                    id="card-margem-acumulado-previsto"></span></div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+             
+            <div class="container-tabelas">
+                <div class="mdl-cell mdl-cell--6-col titulo-tabela-container">
+                    <h4 id="titulo-mes">Volume - Mês</h4>
+                    <table id="volume-mes" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    </table>
+                </div>
+                <div class="mdl-cell mdl-cell--6-col titulo-tabela-container">
+                    <h4 id="titulo-margem-mes" style="text-align: center;">Margem Contribuição - Mês</h4>
+                    <table id="margem-mes" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    </table>
+
+                </div>
+                <div class="mdl-cell mdl-cell--6-col titulo-tabela-container">
+                    <h4 style="text-align: center;">Volume - Acumulado</h4>
+                    <table id="volume-acumulado" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    </table>
+
+                </div>
+                <div class="mdl-cell mdl-cell--6-col titulo-tabela-container">
+                    <h4 style="text-align: center;">Margem Contribuição - Acumulado</h4>
+                    <table id="margem-acumulado" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    </table>
+                </div>
+            </div>
+        </div>
+        <footer class="cinza footer">
+            <div class="legend-container">
+                <div style="display: flex; justify-content: space-around;">
+                    <div id="circulo-vermelho" class="circulo"></div>
+                    <div class="bold">Até 89.99%</div>
+                </div>
+                <div style="display: flex; justify-content: space-around;">
+                    <div id="circulo-amarelo" class="circulo"></div>
+                    <div class="bold">Entre 90 e 99.99%</div>
+                </div>
+                <div style="display: flex; justify-content: space-around;">
+                    <div id="circulo-verde" class="circulo"></div>
+                    <div class="bold">Igual ou Maior a 100%</div>
+                </div>
+            </div>
+        </footer>
+    </div> 

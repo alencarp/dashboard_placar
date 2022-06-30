@@ -1,0 +1,1 @@
+select distinct idtempostr from (select substr(idtempo, 0, 6) idtempostr from fct_previsto_cliente where idtempo>=20210701 order by idtempo) order by idtempostr

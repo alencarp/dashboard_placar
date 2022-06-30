@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CDADescriptor>
+   <DataSources>
+      <Connection id="volumeMesNovo" type="sql.jndi">
+         <Jndi>Cory BI PRODUCAO</Jndi>
+      </Connection>
+      <Connection id="volumeAcumuladoNovo" type="sql.jndi">
+         <Jndi>Cory BI PRODUCAO</Jndi>
+      </Connection>
+      <Connection id="faturamentoMargemMes" type="sql.jndi">
+         <Jndi>Cory BI PRODUCAO</Jndi>
+      </Connection>
+      <Connection id="faturamentoMargemAcumulado" type="sql.jndi">
+         <Jndi>Cory BI PRODUCAO</Jndi>
+      </Connection>
+      <Connection id="mercado" type="sql.jndi">
+         <Jndi>Cory BI PRODUCAO</Jndi>
+      </Connection>
+      <Connection id="volumeMes" type="sql.jndi">
+         <Jndi>Cory BI PRODUCAO</Jndi>
+      </Connection>
+      <Connection id="volumeAcumulado" type="sql.jndi">
+         <Jndi>Cory BI PRODUCAO</Jndi>
+      </Connection>
+      <Connection id="data" type="sql.jndi">
+         <Jndi>Cory BI PRODUCAO</Jndi>
+      </Connection>
+   </DataSources>
+   <DataAccess access="public" cache="true" cacheDuration="600" connection="volumeMesNovo"
+               id="volumeMesNovo"
+               type="sql">
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="ano" type="String"/>
+         <Parameter default="" name="mes" type="String"/>
+         <Parameter default="" name="mercado" type="String"/>
+      </Parameters>
+      <Query>SELECT&#xD;
+familia_comercial,&#xD;
+ROUND(sum(COALESCE (fat_bruto, 0)) / 1000) faturamento_bruto_real,&#xD;
+ROUND(sum(COALESCE (fat_bruto_previsto, 0)) / 1000) faturamento_bruto_previsto,&#xD;
+ROUND(sum(COALESCE (fat_liquido, 0)) / 1000) faturamento_liquido_real,&#xD;
+ROUND(sum(COALESCE (fat_liquido_previsto, 0)) / 1000) faturamento_liquido_previsto,&#xD;
+ROUND(sum(COALESCE (volume, 0)) / 1000) volume_realizado,&#xD;
+ROUND(sum(COALESCE (volume_previsto, 0)) / 1000) volume_previsto,&#xD;
+ROUND(sum(COALESCE (margem_contribuicao, 0)) / 1000) margem_contribuicao_real,&#xD;
+ROUND(sum(COALESCE (margem_contribuicao_previsto, 0)) / 1000) margem_contribuicao_previsto&#xD;
+FROM DASH_PEDIDOS&#xD;
+where ano = CAST(${ano} as integer)&#xD;
+and mes = CAST(${mes} as integer)&#xD;
+and mercado LIKE ${mercado}&#xD;
+group by&#xD;
+familia_comercial&#xD;
+ORDER BY &#xD;
+familia_comercial</Query>
+   </DataAccess>
+   <DataAccess access="public" cache="true" cacheDuration="600"
+               connection="volumeAcumuladoNovo"
+               id="volumeAcumuladoNovo"
+               type="sql">
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="anoinicial" type="String"/>
+         <Parameter default="" name="mesinicial" type="String"/>
+         <Parameter default="" name="anoatual" type="String"/>
+         <Parameter default="" name="mesatual" type="String"/>
+         <Parameter default="" name="mercado" type="String"/>
+      </Parameters>
+      <Query>SELECT&#xD;
+familia_comercial,&#xD;
+ROUND(sum(COALESCE (fat_bruto, 0)) / 1000) faturamento_bruto_real,&#xD;
+ROUND(sum(COALESCE (fat_bruto_previsto, 0)) / 1000) faturamento_bruto_previsto,&#xD;
+ROUND(sum(COALESCE (fat_liquido, 0)) / 1000) faturamento_liquido_real,&#xD;
+ROUND(sum(COALESCE (fat_liquido_previsto, 0)) / 1000) faturamento_liquido_previsto,&#xD;
+ROUND(sum(COALESCE (volume, 0)) / 1000) volume_realizado,&#xD;
+ROUND(sum(COALESCE (volume_previsto, 0)) / 1000) volume_previsto,&#xD;
+ROUND(sum(COALESCE (margem_contribuicao, 0)) / 1000) margem_contribuicao_real,&#xD;
+ROUND(sum(COALESCE (margem_contribuicao_previsto, 0)) / 1000) margem_contribuicao_previsto&#xD;
+FROM DASH_PEDIDOS&#xD;
+where ano = CAST(${anoatual} as integer)&#xD;
+and mes &lt;= CAST(${mesatual} as integer)&#xD;
+and mercado LIKE ${mercado}&#xD;
+group by&#xD;
+familia_comercial&#xD;
+ORDER BY &#xD;
+familia_comercial</Query>
+   </DataAccess>
+   <DataAccess access="public" cache="true" cacheDuration="600"
+               connection="faturamentoMargemMes"
+               id="faturamentoMargemMes"
+               type="sql">
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="ano" type="String"/>
+         <Parameter default="" name="mes" type="String"/>
+         <Parameter default="" name="mercado" type="String"/>
+      </Parameters>
+      <Query>SELECT&#xD;
+COALESCE(round(sum(fat_bruto_previsto)/1000,0), 0) faturado_previsto,&#xD;
+COALESCE(round(sum(fat_bruto)/1000,0), 0) as faturado_realizado,&#xD;
+COALESCE(round(sum(fat_bruto) / sum(fat_bruto_previsto) * 100, 0), 0) porcentagem_faturado,&#xD;
+COALESCE(round(sum(margem_contribuicao_previsto)/1000,0), 0) margem_contribuicao_previsto,&#xD;
+COALESCE(round(sum(margem_contribuicao)/1000,0), 0) as margem_contribuicao_realizado,&#xD;
+COALESCE(round(sum(margem_contribuicao) / sum(margem_contribuicao_previsto) * 100, 0), 0) porcentagem_margem,&#xD;
+COALESCE(round(sum(VOLUME_PREVISTO)/1000,0), 0) as volume_previsto,&#xD;
+COALESCE(round(sum(VOLUME)/1000,0), 0) as volume_realizado,&#xD;
+COALESCE(round(sum(VOLUME) / sum(VOLUME_PREVISTO) * 100, 0), 0) porcentagem_volume&#xD;
+FROM DASH_PEDIDOS&#xD;
+where ano = CAST(${ano} as integer)&#xD;
+and mes = CAST(${mes} as integer)&#xD;
+and mercado LIKE ${mercado}</Query>
+   </DataAccess>
+   <DataAccess access="public" cache="true" cacheDuration="600"
+               connection="faturamentoMargemAcumulado"
+               id="faturamentoMargemAcumulado"
+               type="sql">
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="anoinicial" type="String"/>
+         <Parameter default="" name="mesinicial" type="String"/>
+         <Parameter default="" name="anoatual" type="String"/>
+         <Parameter default="" name="mesatual" type="String"/>
+         <Parameter default="" name="mercado" type="String"/>
+      </Parameters>
+      <Query>select&#xD;
+COALESCE(round(sum(fat_bruto_previsto)/1000,0), 0) faturado_previsto,&#xD;
+COALESCE(round(sum(fat_bruto)/1000,0), 0) as faturado_realizado,&#xD;
+COALESCE(round(sum(fat_bruto) / sum(fat_bruto_previsto) * 100, 0), 0) porcentagem_faturado,&#xD;
+COALESCE(round(sum(margem_contribuicao_previsto)/1000,0), 0) margem_contribuicao_previsto,&#xD;
+COALESCE(round(sum(margem_contribuicao)/1000,0), 0) as margem_contribuicao_realizado,&#xD;
+COALESCE(round(sum(margem_contribuicao) / sum(margem_contribuicao_previsto) * 100, 0), 0) porcentagem_margem,&#xD;
+COALESCE(round(sum(VOLUME_PREVISTO)/1000,0), 0) as volume_previsto,&#xD;
+COALESCE(round(sum(VOLUME)/1000,0), 0) as volume_realizado,&#xD;
+COALESCE(round(sum(VOLUME) / sum(VOLUME_PREVISTO) * 100, 0), 0) porcentagem_volume&#xD;
+FROM DASH_PEDIDOS&#xD;
+where ano = CAST(${anoatual} as integer)&#xD;
+and mes &lt;= CAST(${mesatual} as integer)&#xD;
+and mercado LIKE ${mercado}</Query>
+   </DataAccess>
+   <DataAccess access="public" cache="true" cacheDuration="600" connection="mercado"
+               id="mercado"
+               type="sql">
+      <Columns/>
+      <Parameters/>
+      <Query>select distinct mercado &#xD;
+from dim_regiaocomercial &#xD;
+    join fct_venda on dim_regiaocomercial.idregiaocomercial = fct_venda.idregiaocomercial</Query>
+   </DataAccess>
+   <DataAccess access="public" cache="true" cacheDuration="600" connection="volumeMes"
+               id="volumeMes"
+               type="sql">
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="anomes" type="String"/>
+         <Parameter default="" name="mercado" type="String"/>
+      </Parameters>
+      <Query>select
+coalesce(round(sum(VOLUME_VERDE)/1000,0),0) volume_previsto,
+coalesce(round(sum(VOLUME)/1000,0),0) as volume_realizado,
+coalesce(round(sum(volume) / sum(volume_verde) * 100, 0),0) porcentagem,
+linhas
+from FCT_PREVISTO_BANDEIRAS
+ where anomes = ${anomes}
+    and mercado like ${mercado}
+group by LINHAS
+order by LINHAS</Query>
+   </DataAccess>
+   <DataAccess access="public" cache="true" cacheDuration="600" connection="volumeAcumulado"
+               id="volumeAcumulado"
+               type="sql">
+      <Columns/>
+      <Parameters>
+         <Parameter default="" name="anomes" type="String"/>
+         <Parameter default="" name="anomes_inicial" type="String"/>
+         <Parameter default="" name="mercado" type="String"/>
+      </Parameters>
+      <Query>select
+round(sum(VOLUME_VERDE)/1000,0) volume_previsto,
+round(sum(VOLUME)/1000,0) as volume_realizado,
+round(sum(volume) / sum(volume_verde) * 100, 0) porcentagem,
+linhas
+from FCT_PREVISTO_BANDEIRAS
+ where anomes between ${anomes_inicial} and ${anomes}
+    and mercado like ${mercado}
+group by LINHAS
+order by LINHAS</Query>
+   </DataAccess>
+   <DataAccess access="public" cache="true" cacheDuration="600" connection="data" id="data"
+               type="sql">
+      <Columns/>
+      <Parameters/>
+      <Query>select distinct idtempostr from (select substr(idtempo, 0, 6) idtempostr from fct_previsto_cliente where idtempo&gt;=20210701 order by idtempo) order by idtempostr</Query>
+   </DataAccess>
+</CDADescriptor>
